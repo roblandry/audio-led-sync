@@ -67,6 +67,7 @@ WHITE_LIGHTS = ""
 # prevents same colors repeating by changing hs +/- 30
 PREVENT_STATIC = False
 
+
 @contextlib.contextmanager
 def silence():
     devnull = os.open(os.devnull, os.O_WRONLY)
@@ -109,9 +110,6 @@ class ProcessColor:
         hassSync = self.kwargs.get("hass")
         ledSync = self.kwargs.get("led")
 
-        #if ledSync:
-        #    strip = neoPixelStrip.getStrip()
-
         p = pyaudio.PyAudio()
 
         stream = p.open(
@@ -152,7 +150,6 @@ class ProcessColor:
 
             # get color based on pitch
             hs_color = self.calc_hs(pitch)
-            #print("%s =? %s" % (hs_color, self.color))
             if PREVENT_STATIC:
                 if (self.color <= (hs_color + 5) and self.color >= (hs_color - 5)):
                     if int(hs_color) <= 30:
@@ -180,9 +177,6 @@ class ProcessColor:
                 self.exec_hass(hs_color, brightness)
 
             time.sleep(SLEEP)
-        
-        #if strip:
-        #    strip.clearPixels()
 
         stream.stop_stream()
         stream.close()
@@ -582,8 +576,13 @@ if __name__ == "__main__":
                 ProcessColor(hass=hass, led=led)
 
             if args.stop:
-                print("Stopping.")
-                exit()
+                print("Stop function")
+                neoPixelStrip(function="clear")
+                ProcessColor.exec_hass(0)
+                print("----------------------------------------------")
+                print("--------------- Shutting Down! ---------------")
+                print("----------------------------------------------")
+                exit(0)
 
             time.sleep(SLEEP)
 
@@ -591,8 +590,8 @@ if __name__ == "__main__":
         if args.clear:  # pylint: disable=too-many-function-args
             neoPixelStrip(function="clear")
             ProcessColor.exec_hass(0)
-        print("--------------------------------------------")
+        print("----------------------------------------------")
         print("--------------- Shutting Down! ---------------")
         print("----------------------------------------------")
-        print("")
-        print("")
+        exit(0)
+

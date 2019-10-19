@@ -1,0 +1,18 @@
+.controller {
+   text-align: center;
+   margin-top: 10%;
+   padding-top: 2%;
+   padding-bottom: 2%;
+   margin-bottom: 10%;
+   background-color: #FDF3E7;
+   color: #3B3738;
+}
+
+.outside {
+   background-color: #C63D0F;
+}
+
+#all, #wipe, #theater, #rainbow, #audioSync, #hassEntity, #turnOff {
+   background: #3B3738;
+   color: #FDF3E7;
+}

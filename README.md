@@ -10,7 +10,12 @@ Options -e, -x for home assistant
 
 -x hass,led, or both to sync audio via usb mic connected to rpi and display colors based on pitch/volume.
 
-There is a cherrypy server script that is not yet implimented.
+NOTE: sudo is required for ws2821 leds depending on the pin used. If not using leds or you are using
+a supported pin that does not require root access, then no sudo commands are required for these scripts.
+
+There is a cherrypy server script that is included.
+  Spin up the server ```sudo python3 color_server.py```
+  Open a web browser to your ip address and port 8080.
 
 cli options:
 ```
